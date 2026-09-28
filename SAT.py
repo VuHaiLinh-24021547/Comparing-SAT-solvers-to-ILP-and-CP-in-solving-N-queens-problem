@@ -83,7 +83,7 @@ def solve_n_queens(n, encoding, timeout=120.0):
 
             solver.add_clause([-c_i] + group)
 
-    def sat_encoding(variables, is_EO, force_pairwise=False):
+    def sat_encoding(variables, is_EO):
         nonlocal top_id
         m = len(variables)
 
@@ -98,7 +98,7 @@ def solve_n_queens(n, encoding, timeout=120.0):
                 solver.add_clause([variables[0]])
             return
 
-        if m <= 27 or force_pairwise:
+        if m <= 27:
             if is_EO:
                 cnf = CardEnc.equals(lits=variables, bound=1, top_id=top_id, encoding=EncType.pairwise)
             else:
@@ -133,19 +133,19 @@ def solve_n_queens(n, encoding, timeout=120.0):
 
     for row in range(n - 1):
         diagonal_variables = [variables[row + column][column] for column in range(n - row)]
-        sat_encoding(diagonal_variables, is_EO=False, force_pairwise=True)
+        sat_encoding(diagonal_variables, is_EO=False)
 
     for column in range(1, n - 1):
         diagonal_variables = [variables[row][column + row] for row in range(n - column)]
-        sat_encoding(diagonal_variables, is_EO=False, force_pairwise=True)
+        sat_encoding(diagonal_variables, is_EO=False)
 
     for row in range(n - 1):
         diagonal_variables = [variables[row + column][n - 1 - column] for column in range(n - row)]
-        sat_encoding(diagonal_variables, is_EO=False, force_pairwise=True)
+        sat_encoding(diagonal_variables, is_EO=False)
 
     for column in range(1, n - 1):
         diagonal_variables = [variables[row][n - 1 - (column + row)] for row in range(n - column)]
-        sat_encoding(diagonal_variables, is_EO=False, force_pairwise=True)
+        sat_encoding(diagonal_variables, is_EO=False)
 
     is_timeout = False
     def interrupt_solver():
@@ -189,7 +189,7 @@ def solve_n_queens(n, encoding, timeout=120.0):
     # return "No solution"
 
 times = []
-grid_sizes = [300]
+grid_sizes = [729]
 
 #pairwise, bitwise, seqcounter, commander, product
 encoding = "EncType.product"
