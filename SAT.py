@@ -2,13 +2,13 @@ from pysat.card import CardEnc, EncType
 from pysat.solvers import Glucose3
 import time
 import math
+import threading
 
 def get_variable(n):
     return [[row * n + column + 1 for column in range(n)] for row in range(n)]
 
-def solve_n_queens(n, encoding, times):
+def solve_n_queens(n, encoding, timeout=120.0):
     start_time = time.time()
-
     solver = Glucose3()
     top_id = n * n
     variables = get_variable(n)
@@ -89,31 +89,56 @@ def solve_n_queens(n, encoding, times):
         diagonal_variables = [variables[row][n - 1 - (column + row)] for row in range(n - column)]
         sat_encoding(diagonal_variables, is_EO=False)
 
-    if solver.solve():
-        model = set(solver.get_model())
-        solution = []
-        # for r in range(n):
-        #     row = ["Q" if variables[r][c] in model else "." for c in range(n)]
-        #     solution.append(" ".join(row))
+    is_timeout = False
 
-        end_time = time.time()
-        times.append(round(end_time - start_time, 6))
+    def interrupt_solver():
+        nonlocal is_timeout
+        is_timeout = True
+        solver.interrupt()  # Tells Glucose3 to halt immediately
 
-        # return "\n".join(solution)
+    # Start timer thread
+    timer = threading.Timer(timeout, interrupt_solver)
+    timer.start()
+
+    # Solve
+    solved = solver.solve()
+
+    # Cancel timer if solving finished before timeout
+    timer.cancel()
+    elapsed = round(time.time() - start_time, 6)
+
+    if is_timeout:
+        times.append(f">{timeout}s (Timeout)")
+        return "Timeout reached"
+    elif solved:
+        times.append(elapsed)
         return "Solution found"
+    else:
+        times.append(elapsed)
+        return "No solution"
 
-    return "No solution"
+    # if solved:
+    #     model = set(solver.get_model())
+    #     solution = []
+    #     # for r in range(n):
+    #     #     row = ["Q" if variables[r][c] in model else "." for c in range(n)]
+    #     #     solution.append(" ".join(row))
+
+    #     end_time = time.time()
+    #     times.append(round(end_time - start_time, 6))
+
+    #     # return "\n".join(solution)
+    #     return "Solution found"
+
+    # return "No solution"
 
 times = []
-grid_sizes = [4, 10, 50, 100, 121, 144, 256, 512, 1000, 1024]
+grid_sizes = [1331]
 
 #pairwise, bitwise, seqcounter, commander
 encoding = "EncType.commander"
-
-for n in grid_sizes:
-    solution = solve_n_queens(n, encoding, times)
-    print(f"Grid size: {n}")
+for grid_size in grid_sizes:
+    solution = solve_n_queens(grid_size, encoding)
+    print(f"Grid size: {grid_size}")
     print(solution)
-    print()
-
 print(times)
