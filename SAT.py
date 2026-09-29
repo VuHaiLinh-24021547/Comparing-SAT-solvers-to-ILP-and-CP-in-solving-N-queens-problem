@@ -189,7 +189,7 @@ def solve_n_queens(n, encoding, timeout=120.0):
     # return "No solution"
 
 times = []
-grid_sizes = [729]
+grid_sizes = [1331]
 
 #pairwise, bitwise, seqcounter, commander, product
 encoding = "EncType.product"
