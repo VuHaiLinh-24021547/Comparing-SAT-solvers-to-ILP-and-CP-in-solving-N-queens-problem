@@ -18,4 +18,4 @@ def solve_n_queens(n):
     else:
         print("No solution found.")
 
-solve_n_queens(101)
+solve_n_queens(500)

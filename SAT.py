@@ -3,6 +3,7 @@ from pysat.solvers import Glucose3
 import time
 import math
 import threading
+import sys
 
 def get_variable(n):
     return [[row * n + column + 1 for column in range(n)] for row in range(n)]
@@ -189,10 +190,14 @@ def solve_n_queens(n, encoding, timeout=120.0):
     # return "No solution"
 
 times = []
-grid_sizes = [1331]
+grid_sizes = [1000]
 
 #pairwise, bitwise, seqcounter, commander, product
-encoding = "EncType.product"
+encoding = "EncType.pairwise"
+
+if len(sys.argv) > 1:
+    encoding = sys.argv[1]
+
 for grid_size in grid_sizes:
     solution = solve_n_queens(grid_size, encoding)
     print(f"Grid size: {grid_size}")
