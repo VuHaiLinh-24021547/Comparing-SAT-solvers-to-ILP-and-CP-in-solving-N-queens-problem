@@ -9,7 +9,6 @@ def get_variable(n):
     return [[row * n + column + 1 for column in range(n)] for row in range(n)]
 
 def solve_n_queens(n, encoding, timeout=120.0):
-    start_time = time.time()
     solver = Glucose3()
     top_id = n * n
     variables = get_variable(n)
@@ -156,7 +155,7 @@ def solve_n_queens(n, encoding, timeout=120.0):
 
     # Start timer thread
     timer = threading.Timer(timeout, interrupt_solver)
-    timer.start()
+    start_time = timer.start()
 
     # Solve
     solved = solver.solve()
