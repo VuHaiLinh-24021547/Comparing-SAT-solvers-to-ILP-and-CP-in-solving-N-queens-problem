@@ -98,7 +98,7 @@ def solve_n_queens(n, encoding, timeout=120.0):
                 solver.add_clause([variables[0]])
             return
 
-        if m <= 27:
+        if m <= 25:
             if is_EO:
                 cnf = CardEnc.equals(lits=variables, bound=1, top_id=top_id, encoding=EncType.pairwise)
             else:
@@ -155,14 +155,15 @@ def solve_n_queens(n, encoding, timeout=120.0):
 
     # Start timer thread
     timer = threading.Timer(timeout, interrupt_solver)
-    start_time = timer.start()
+    timer.start()
+    start_time = time.perf_counter()
 
     # Solve
     solved = solver.solve()
 
     # Cancel timer if solving finished before timeout
     timer.cancel()
-    elapsed = round(time.time() - start_time, 6)
+    elapsed = round(time.perf_counter() - start_time, 6)
 
     if is_timeout:
         times.append(f">{timeout}s (Timeout)")
@@ -192,8 +193,9 @@ times = []
 grid_sizes = [1000]
 
 #pairwise, bitwise, seqcounter, commander, product
-encoding = "EncType.pairwise"
+encoding = "EncType.product"
 
+#choose encoding from terminal input
 if len(sys.argv) > 1:
     encoding = sys.argv[1]
 
