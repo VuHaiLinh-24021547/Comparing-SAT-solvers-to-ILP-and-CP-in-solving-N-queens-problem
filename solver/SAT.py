@@ -55,7 +55,6 @@ def solve_n_queens(n, encoding, timeout=120.0):
 
             solver.add_clause([-variables[idx], row_variables[row_id]])
             solver.add_clause([-variables[idx], column_variables[col_id]])
-            solver.add_clause([-row_variables[row_id], -column_variables[col_id], variables[idx]])
 
         if is_EO:
             solver.add_clause(variables)
