@@ -1,0 +1,41 @@
+encoding,grid_size,variables,clauses,encoding_time,solving_time,result
+EncType.pairwise,8,64,744,0.000481,8.1e-05s,Solution found
+EncType.pairwise,16,256,6352,0.00209,0.007128s,Solution found
+EncType.pairwise,32,1024,52640,0.014001,0.003554s,Solution found
+EncType.pairwise,64,4096,428864,0.122078,0.008092s,Solution found
+EncType.pairwise,128,16384,3462784,0.895549,0.048412s,Solution found
+EncType.pairwise,256,65536,27831552,7.706379,0.19046s,Solution found
+EncType.pairwise,512,262144,223173120,82.866062,4.211454s,Solution found
+EncType.pairwise,1024,1048576,262412277,120.104412,>120.0s (Timeout during encoding),Timeout reached
+EncType.bitwise,8,170,724,0.000724,0.000147s,Solution found
+EncType.bitwise,16,568,3924,0.002577,0.164876s,Solution found
+EncType.bitwise,32,1846,19796,0.010943,0.119727s,Solution found
+EncType.bitwise,64,6132,95572,0.047923,11.020871s,Solution found
+EncType.bitwise,128,21234,447828,0.207078,0.539035s,Solution found
+EncType.bitwise,256,76784,2053460,1.078125,1.241384s,Solution found
+EncType.bitwise,512,287726,9262420,4.795231,2.914842s,Solution found
+EncType.bitwise,1024,1105900,41243988,22.1673,10.265166s,Solution found
+EncType.seqcounter,8,270,600,0.000723,0.000131s,Solution found
+EncType.seqcounter,16,1182,2728,0.002345,0.059448s,Solution found
+EncType.seqcounter,32,4926,11592,0.008889,0.0508s,Solution found
+EncType.seqcounter,64,20094,47752,0.036006,5.472745s,Solution found
+EncType.seqcounter,128,81150,193800,0.119654,65.04704s,Solution found
+EncType.seqcounter,256,326142,780808,0.588223,>120.0s (Timeout),Timeout reached
+EncType.seqcounter,512,,,,, Timeout reached
+EncType.seqcounter,1024,,,,, Timeout reached
+EncType.commander,8,178,666,0.000966,9.5e-05s,Solution found
+EncType.commander,16,572,3080,0.003098,0.004047s,Solution found
+EncType.commander,32,1940,15294,0.011157,0.421928s,Solution found
+EncType.commander,64,6588,76680,0.047851,0.011263s,Solution found
+EncType.commander,128,23548,395244,0.213833,0.050104s,Solution found
+EncType.commander,256,85116,2154200,1.024029,0.188651s,Solution found
+EncType.commander,512,317570,11777358,4.970632,0.920521s,Solution found
+EncType.commander,1024,1203452,64539832,25.553701,9.757819s,Solution found
+EncType.product,8,64,744,0.000479,8.6e-05s,Solution found
+EncType.product,16,680,3728,0.001748,0.092806s,Solution found
+EncType.product,32,2612,15872,0.006687,6.203151s,Solution found
+EncType.product,64,8784,63680,0.026766,0.135544s,Solution found
+EncType.product,128,30026,258326,0.119805,1.063471s,Solution found
+EncType.product,256,104032,1034784,0.532847,4.544717s,Solution found
+EncType.product,512,371800,4172760,2.016939,2.869583s,Solution found
+EncType.product,1024,1356160,16667872,8.307661,5.643325s,Solution found
